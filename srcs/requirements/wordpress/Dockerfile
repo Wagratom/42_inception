@@ -1,6 +1,6 @@
 FROM debian
 
-RUN apt-get update \
+RUN apt update && apt install -y \
 	php-fpm \
 	php-mysql \
 	php-gd \
@@ -17,6 +17,7 @@ RUN wget https://wordpress.org/latest.tar.gz && \
 	mkdir -p /var/www/html && \
 	mv wordpress /var/www/html/
 
+EXPOSE 9000
 CMD ["php-fpm7.3", "-F"]
 
 

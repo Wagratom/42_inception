@@ -1,6 +1,5 @@
 FROM debian
-RUN apt-get  update &&\
-	apt-get install -y nginx
+RUN apt-get  update && apt-get install -y nginx
 
 # se eu quiser configurar depos
 #COPY nginx.conf /etc/nginx/nginx.conf
