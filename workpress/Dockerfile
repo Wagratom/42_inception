@@ -1,5 +1,6 @@
 FROM debian
-RUN RUN apt-get update && apt-get install -y \
+
+RUN apt-get update \
 	php-fpm \
 	php-mysql \
 	php-gd \
@@ -15,3 +16,9 @@ RUN wget https://wordpress.org/latest.tar.gz && \
 	rm -rf latest.tar.gz && \
 	mkdir -p /var/www/html && \
 	mv wordpress /var/www/html/
+
+CMD ["php-fpm7.3", "-F"]
+
+
+#COPY php-fpm.conf /etc/php/7.3/fpm/pool.d/php-fpm.conf
+#COPY wordpress /var/www/html/wordpress
