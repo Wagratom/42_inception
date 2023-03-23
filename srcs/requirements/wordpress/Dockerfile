@@ -1,7 +1,7 @@
 FROM debian
 
 RUN apt update && apt install -y \
-	php-fpm \
+	php7.4-fpm \
 	php-mysql \
 	php-gd \
 	php-curl \
@@ -17,8 +17,10 @@ RUN wget https://wordpress.org/latest.tar.gz && \
 	mkdir -p /var/www/html && \
 	mv wordpress /var/www/html/
 
+RUN mkdir -p /run/php
+
 EXPOSE 9000
-CMD ["php-fpm7.3", "-F"]
+CMD ["php-fpm7.4", "-F"]
 
 
 #COPY php-fpm.conf /etc/php/7.3/fpm/pool.d/php-fpm.conf
