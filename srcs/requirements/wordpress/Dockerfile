@@ -12,14 +12,11 @@ RUN apt update && apt install -y \
 	unzip
 
 RUN wget https://wordpress.org/latest.tar.gz && \
-	tar -xzvf latest.tar.gz && \
-	rm -rf latest.tar.gz && \
-	mkdir -p /var/www/html && \
-	mv wordpress /var/www/html/
+	tar -xzvf latest.tar.gz && rm -rf latest.tar.gz && \
+	mkdir -p /var/www/html &&  mv wordpress /var/www/html/
 
 RUN mkdir -p /run/php
 
-EXPOSE 9000
 CMD ["php-fpm7.4", "-F"]
 
 

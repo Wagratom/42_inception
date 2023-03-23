@@ -6,7 +6,7 @@
 #    By: wwallas- <wwallas-@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/22 10:32:25 by wwallas-          #+#    #+#              #
-#    Updated: 2023/03/23 12:49:59 by wwallas-         ###   ########.fr        #
+#    Updated: 2023/03/23 17:28:32 by wwallas-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,8 +43,10 @@ clean_imgs:
 	docker rmi -f $$(docker images | grep $(NGX_NAME) | awk '{print $$3}')
 	docker rmi -f $$(docker images | grep $(WP_NAME) | awk '{print $$3}')
 
-
-cleanup: clean_ps clean_network clean_imgs
+checks:
 	docker ps -all
 	docker images
 	docker network ls
+
+cleanup: clean_ps clean_network clean_imgs checks
+

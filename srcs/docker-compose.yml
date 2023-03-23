@@ -29,8 +29,8 @@ services:
       - wordpress-files:/var/www/html
       - wordpress-db:/var/lib/mysql
     environment:
-      WORDPRESS_DB_HOST: mariadb
       WORDPRESS_DB_NAME: wordpress_db
+      WORDPRESS_DB_HOST: mariadb
       WORDPRESS_DB_USER: user
       WORDPRESS_DB_PASSWORD: password
     networks:
