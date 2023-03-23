@@ -6,24 +6,20 @@
 #    By: wwallas- <wwallas-@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/22 10:32:25 by wwallas-          #+#    #+#              #
-#    Updated: 2023/03/22 18:10:18 by wwallas-         ###   ########.fr        #
+#    Updated: 2023/03/23 12:49:59 by wwallas-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 DB_NAME = mariadb
 NGX_NAME = nginx
 WP_NAME = wordpress
-NTW_NAME = worpress_network
+NTW_NAME = wordpress_network
 
-all: init_imgs init_network
+all: init_service
 
-init_network:
-#		initialize network
-		@docker network create --attachable $(NTW_NAME)
-#		containers added to network
-		@docker run -d --name $(DB_NAME) --network $(NTW_NAME) -p 3306:3306 mariadb_img
-		@docker run -d --name $(NGX_NAME) --network $(NTW_NAME) -p 80:80 -p 443:443 nginx_img
-		@docker run -d --name $(WP_NAME) --network $(NTW_NAME) -p 9000:9000 wordpress_img
+init_service:
+	cd srcs && docker-compose up -d --no-recreate --build
+	cd ..
 
 init_imgs:
 #		initialize mariadb
@@ -49,3 +45,6 @@ clean_imgs:
 
 
 cleanup: clean_ps clean_network clean_imgs
+	docker ps -all
+	docker images
+	docker network ls
