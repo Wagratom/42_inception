@@ -6,7 +6,7 @@
 #    By: wwallas- <wwallas-@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/22 10:32:25 by wwallas-          #+#    #+#              #
-#    Updated: 2023/03/23 17:28:32 by wwallas-         ###   ########.fr        #
+#    Updated: 2023/03/24 18:27:03 by wwallas-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,15 +21,6 @@ init_service:
 	cd srcs && docker-compose up -d --no-recreate --build
 	cd ..
 
-init_imgs:
-#		initialize mariadb
-		@docker build --rm -t $(DB_NAME)_img ./srcs/requirements/mariadb
-#		initialize nginx
-		@docker build --rm -t $(NGX_NAME)_img ./srcs/requirements/nginx
-#		initialize wordpress
-		@docker build --rm -t $(WP_NAME)_img ./srcs/requirements/wordpress
-
-
 clean_ps:
 	docker rm -f $$(docker ps -a | grep $(DB_NAME) | awk '{print $$1}')
 	docker rm -f $$(docker ps -a | grep $(NGX_NAME) | awk '{print $$1}')
@@ -43,10 +34,20 @@ clean_imgs:
 	docker rmi -f $$(docker images | grep $(NGX_NAME) | awk '{print $$3}')
 	docker rmi -f $$(docker images | grep $(WP_NAME) | awk '{print $$3}')
 
+clean_volumes:
+	docker volume rm srcs_wordpress-db
+	docker volume rm srcs_wordpress-files
+
 checks:
+	@echo "Containers:"
 	docker ps -all
+	@echo "Images:"
 	docker images
+	@echo "Networks:"
 	docker network ls
+	@echo "Volumes:"
+	docker volume ls
 
-cleanup: clean_ps clean_network clean_imgs checks
+cleanup: clean_ps clean_network clean_imgs clean_volumes checks
 
+re: cleanup all

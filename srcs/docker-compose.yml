@@ -13,7 +13,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - wordpress-files:/var/www/html
+      - wordpress-files:/usr/share/
     networks:
       - wordpress_network
 
@@ -26,13 +26,13 @@ services:
     depends_on:
       - mariadb
     volumes:
-      - wordpress-files:/var/www/html
+      - wordpress-files:/usr/share/
       - wordpress-db:/var/lib/mysql
     environment:
       WORDPRESS_DB_NAME: wordpress_db
-      WORDPRESS_DB_HOST: mariadb
       WORDPRESS_DB_USER: user
       WORDPRESS_DB_PASSWORD: password
+      WORDPRESS_DB_HOST: mariadb
     networks:
       - wordpress_network
 
