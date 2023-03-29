@@ -9,6 +9,8 @@ services:
     restart: always
     depends_on :
       - wordpress
+    volumes:
+      - wordpress_data:/var/www/html
     ports:
       - "8080:80"
       - "4343:443"
@@ -21,6 +23,8 @@ services:
       dockerfile: Dockerfile
     container_name: wordpress
     restart: always
+    volumes:
+      - wordpress_data:/var/www/html
     environment:
       WORDPRESS_DB_NAME: wordpress_db
       WORDPRESS_DB_USER: user
@@ -46,3 +50,9 @@ services:
 networks:
   wordpress_network:
     driver: bridge
+
+volumes:
+  mariadb_data:
+    driver: local
+  wordpress_data:
+    driver: local

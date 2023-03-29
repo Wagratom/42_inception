@@ -1,7 +1,8 @@
-FROM debian:stable-slim
+FROM debian:buster
 
 RUN apt update && apt install -y \
-	php-fpm \
+	php7.3-fpm\
+	php7.3-mysqli \
 	wget \
 	unzip
 
@@ -11,10 +12,15 @@ RUN rm -f latest.zip
 
 RUN mkdir -p var/www/html/
 RUN mv wordpress /var/www/html
-RUN chown www-data:www-data -R /var/www/html/wordpress 
-RUN chmod 777 -R /var/www/html/wordpress
-RUN mkdir -p /run/php
+RUN chown -R www-data:www-data /var/www/html/
+RUN chmod -R 774 /var/www/html/
+#RUN rm -f /var/www/html/wordpress/wp-config-sample.php
+# COPY conf/wp-config.php /var/www/html/wordpress/
+
+RUN mkdir -p /run/php && chmod 777 /var/run/php
+RUN sed -i 's/listen = \/run\/php\/php7.3-fpm.sock/listen = 0.0.0.0:9000/' /etc/php/7.3/fpm/pool.d/www.conf
+RUN echo "<h1>Estou dentro do wordpress</h1>" > /var/www/html/index.php
 
 EXPOSE 9000
-CMD ["php-fpm7.4", "-F"]
+CMD ["php-fpm7.3", "-F"]
 

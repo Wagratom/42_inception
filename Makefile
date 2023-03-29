@@ -38,8 +38,8 @@ clean_imgs:
 	docker rmi -f $$(docker images | grep $(WP_NAME) | awk '{print $$3}')
 
 clean_volumes:
-#	docker volume rm srcs_wordpress-db
-#	docker volume rm srcs_wordpress-files
+	docker volume rm srcs_wordpress_data
+#	docker volume rm srcs_mariadb_data
 
 checks:
 	@echo "Containers:"
@@ -53,4 +53,4 @@ checks:
 
 cleanup: clean_ps clean_network clean_imgs clean_volumes checks
 
-re: cleanup all
+re: cleanup all checks

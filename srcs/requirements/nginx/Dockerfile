@@ -1,13 +1,16 @@
-FROM debian:stable-slim
+FROM debian:buster
 
-RUN apt-get  update && apt-get install -y nginx openssl
+RUN apt-get update && apt-get install -y \
+	nginx \
+	openssl \
+	procps
 
 RUN openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 \
-    -subj "/C=US/ST=State/L=City/O=Organization/CN=localhost" \
-    -keyout /etc/nginx/cert.key -out /etc/nginx/cert.crt
+	-subj "/C=US/ST=State/L=City/O=Organization/CN=localhost" \
+	-keyout /etc/nginx/cert.key -out /etc/nginx/cert.crt
 
 RUN sed -i 's/ssl_protocols.*/ssl_protocols TLSv1.3;/' /etc/nginx/nginx.conf
-COPY my.conf /etc/nginx/conf.d/
+COPY conf/my.conf /etc/nginx/conf.d/
 
 EXPOSE 443
 EXPOSE 80
