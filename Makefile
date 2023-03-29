@@ -21,8 +21,11 @@ init_service:
 	cd srcs && docker-compose up -d --no-recreate --build
 	cd ..
 
+restart:
+	cd srcs && docker-compose restart
+	cd ..
 clean_ps:
-	docker rm -f $$(docker ps -a | grep $(DB_NAME) | awk '{print $$1}')
+#	docker rm -f $$(docker ps -a | grep $(DB_NAME) | awk '{print $$1}')
 	docker rm -f $$(docker ps -a | grep $(NGX_NAME) | awk '{print $$1}')
 	docker rm -f $$(docker ps -a | grep $(WP_NAME) | awk '{print $$1}')
 
@@ -30,13 +33,13 @@ clean_network:
 	@docker network rm $$(docker network ls | grep $(NTW_NAME) | awk '{print $$1}')
 
 clean_imgs:
-	docker rmi -f $$(docker images | grep $(DB_NAME) | awk '{print $$3}')
+#	docker rmi -f $$(docker images | grep $(DB_NAME) | awk '{print $$3}')
 	docker rmi -f $$(docker images | grep $(NGX_NAME) | awk '{print $$3}')
 	docker rmi -f $$(docker images | grep $(WP_NAME) | awk '{print $$3}')
 
 clean_volumes:
-	docker volume rm srcs_wordpress-db
-	docker volume rm srcs_wordpress-files
+#	docker volume rm srcs_wordpress-db
+#	docker volume rm srcs_wordpress-files
 
 checks:
 	@echo "Containers:"

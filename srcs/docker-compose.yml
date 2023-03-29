@@ -1,4 +1,4 @@
-version: "2.16"
+version: "1.25"
 
 services:
   nginx:
@@ -10,8 +10,8 @@ services:
     depends_on :
       - wordpress
     ports:
-      - "80:80"
-      - "443:443"
+      - "8080:80"
+      - "4343:443"
     networks:
       - wordpress_network
 
@@ -21,8 +21,6 @@ services:
       dockerfile: Dockerfile
     container_name: wordpress
     restart: always
-    depends_on:
-      - mariadb
     environment:
       WORDPRESS_DB_NAME: wordpress_db
       WORDPRESS_DB_USER: user
@@ -31,19 +29,19 @@ services:
     networks:
       - wordpress_network
 
-  mariadb:
-    build:
-      context: ./requirements/mariadb
-      dockerfile: Dockerfile
-    container_name: mariadb
-    restart: always
-    environment:
-      MYSQL_DATABASE: wordpress_db
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: root_password
-    networks:
-      - wordpress_network
+  # mariadb:
+  #   build:
+  #     context: ./requirements/mariadb
+  #     dockerfile: Dockerfile
+  #   container_name: mariadb
+  #   restart: always
+  #   environment:
+  #     MYSQL_DATABASE: wordpress_db
+  #     MYSQL_USER: user
+  #     MYSQL_PASSWORD: password
+  #     MYSQL_ROOT_PASSWORD: root_password
+  #   networks:
+  #     - wordpress_network
 
 networks:
   wordpress_network:

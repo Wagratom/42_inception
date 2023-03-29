@@ -5,7 +5,7 @@ RUN apt update && apt install -y \
 	wget \
 	unzip
 
-RUN wget wordpress/dowload/latest.zip
+RUN wget https://wordpress.org/latest.zip
 RUN unzip latest.zip
 RUN rm -f latest.zip
 
