@@ -12,8 +12,6 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    volumes:
-      - wordpress-files:/usr/share/
     networks:
       - wordpress_network
 
@@ -25,9 +23,6 @@ services:
     restart: always
     depends_on:
       - mariadb
-    volumes:
-      - wordpress-files:/usr/share/
-      - wordpress-db:/var/lib/mysql
     environment:
       WORDPRESS_DB_NAME: wordpress_db
       WORDPRESS_DB_USER: user
@@ -42,8 +37,6 @@ services:
       dockerfile: Dockerfile
     container_name: mariadb
     restart: always
-    volumes:
-      - wordpress-db:/var/lib/mysql
     environment:
       MYSQL_DATABASE: wordpress_db
       MYSQL_USER: user
@@ -55,7 +48,3 @@ services:
 networks:
   wordpress_network:
     driver: bridge
-
-volumes:
-  wordpress-files:
-  wordpress-db:

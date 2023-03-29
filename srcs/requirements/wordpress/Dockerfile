@@ -2,9 +2,19 @@ FROM debian:stable-slim
 
 RUN apt update && apt install -y \
 	php-fpm \
-	wordpress
+	wget \
+	unzip
 
+RUN wget wordpress/dowload/latest.zip
+RUN unzip latest.zip
+RUN rm -f latest.zip
+
+RUN mkdir -p var/www/html/
+RUN mv wordpress /var/www/html
+RUN chown www-data:www-data -R /var/www/html/wordpress 
+RUN chmod 777 -R /var/www/html/wordpress
 RUN mkdir -p /run/php
+
 EXPOSE 9000
 CMD ["php-fpm7.4", "-F"]
 
