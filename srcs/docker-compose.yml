@@ -25,7 +25,7 @@ services:
     restart: always
     volumes:
       - wordpress_data:/var/www/html
-      - mariadb_data:/etc/mysql/
+      - mariadb_data:/var/lib/mysql/
     environment:
       WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
       WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
@@ -41,7 +41,7 @@ services:
     container_name: mariadb
     restart: always
     volumes:
-      - mariadb_data:/etc/mysql/
+      - mariadb_data:/var/lib/mysql/
     environment:
       MYSQL_DATABASE: ${WORDPRESS_DB_NAME}
       MYSQL_USER: ${WORDPRESS_DB_USER}
