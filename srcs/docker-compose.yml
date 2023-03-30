@@ -27,25 +27,25 @@ services:
       - wordpress_data:/var/www/html
     environment:
       WORDPRESS_DB_NAME: wordpress_db
-      WORDPRESS_DB_USER: user
-      WORDPRESS_DB_PASSWORD: password
+      WORDPRESS_DB_USER: www-data
+      WORDPRESS_DB_PASSWORD: EscravoDa42
       WORDPRESS_DB_HOST: mariadb
     networks:
       - wordpress_network
 
-  # mariadb:
-  #   build:
-  #     context: ./requirements/mariadb
-  #     dockerfile: Dockerfile
-  #   container_name: mariadb
-  #   restart: always
-  #   environment:
-  #     MYSQL_DATABASE: wordpress_db
-  #     MYSQL_USER: user
-  #     MYSQL_PASSWORD: password
-  #     MYSQL_ROOT_PASSWORD: root_password
-  #   networks:
-  #     - wordpress_network
+  mariadb:
+    build:
+      context: ./requirements/mariadb
+      dockerfile: Dockerfile
+    container_name: mariadb
+    restart: always
+    environment:
+      MYSQL_DATABASE: wordpress_db
+      MYSQL_USER: www-data
+      MYSQL_PASSWORD: EscravoDa42
+      MYSQL_ROOT_PASSWORD: JuninMatadorDePorco
+    networks:
+      - wordpress_network
 
 networks:
   wordpress_network:

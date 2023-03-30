@@ -25,7 +25,7 @@ restart:
 	cd srcs && docker-compose restart
 	cd ..
 clean_ps:
-#	docker rm -f $$(docker ps -a | grep $(DB_NAME) | awk '{print $$1}')
+	docker rm -f $$(docker ps -a | grep $(DB_NAME) | awk '{print $$1}')
 	docker rm -f $$(docker ps -a | grep $(NGX_NAME) | awk '{print $$1}')
 	docker rm -f $$(docker ps -a | grep $(WP_NAME) | awk '{print $$1}')
 
@@ -33,7 +33,7 @@ clean_network:
 	@docker network rm $$(docker network ls | grep $(NTW_NAME) | awk '{print $$1}')
 
 clean_imgs:
-#	docker rmi -f $$(docker images | grep $(DB_NAME) | awk '{print $$3}')
+	docker rmi -f $$(docker images | grep $(DB_NAME) | awk '{print $$3}')
 	docker rmi -f $$(docker images | grep $(NGX_NAME) | awk '{print $$3}')
 	docker rmi -f $$(docker images | grep $(WP_NAME) | awk '{print $$3}')
 
