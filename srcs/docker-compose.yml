@@ -25,11 +25,12 @@ services:
     restart: always
     volumes:
       - wordpress_data:/var/www/html
+      - mariadb_data:/etc/mysql/
     environment:
       WORDPRESS_DB_NAME: wordpress_db
       WORDPRESS_DB_USER: www-data
       WORDPRESS_DB_PASSWORD: EscravoDa42
-      WORDPRESS_DB_HOST: mariadb
+      WORDPRESS_DB_HOST: mariadb:3306
     networks:
       - wordpress_network
 
@@ -39,6 +40,8 @@ services:
       dockerfile: Dockerfile
     container_name: mariadb
     restart: always
+    volumes:
+      - mariadb_data:/etc/mysql/
     environment:
       MYSQL_DATABASE: wordpress_db
       MYSQL_USER: www-data

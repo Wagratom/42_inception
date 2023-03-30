@@ -39,7 +39,7 @@ clean_imgs:
 
 clean_volumes:
 	docker volume rm srcs_wordpress_data
-#	docker volume rm srcs_mariadb_data
+	docker volume rm srcs_mariadb_data
 
 checks:
 	@echo "Containers:"

@@ -3,6 +3,7 @@ FROM debian:buster
 RUN apt update && apt install -y \
 	php7.3-fpm\
 	php7.3-mysqli \
+	mariadb-client \
 	wget \
 	unzip
 
