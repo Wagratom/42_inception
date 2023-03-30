@@ -13,8 +13,10 @@ RUN rm -f latest.zip
 
 RUN mkdir -p var/www/html/
 RUN mv wordpress /var/www/html
+
 RUN chown -R www-data:www-data /var/www/html/
 RUN chmod -R 774 /var/www/html/
+
 COPY conf/wp-config.php /var/www/html/wordpress/wp-config.php
 
 RUN mkdir -p /run/php && chmod 777 /var/run/php

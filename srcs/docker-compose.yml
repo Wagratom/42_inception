@@ -27,10 +27,10 @@ services:
       - wordpress_data:/var/www/html
       - mariadb_data:/etc/mysql/
     environment:
-      WORDPRESS_DB_NAME: wordpress_db
-      WORDPRESS_DB_USER: www-data
-      WORDPRESS_DB_PASSWORD: EscravoDa42
-      WORDPRESS_DB_HOST: mariadb:3306
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
     networks:
       - wordpress_network
 
@@ -43,10 +43,10 @@ services:
     volumes:
       - mariadb_data:/etc/mysql/
     environment:
-      MYSQL_DATABASE: wordpress_db
-      MYSQL_USER: www-data
-      MYSQL_PASSWORD: EscravoDa42
-      MYSQL_ROOT_PASSWORD: JuninMatadorDePorco
+      MYSQL_DATABASE: ${WORDPRESS_DB_NAME}
+      MYSQL_USER: ${WORDPRESS_DB_USER}
+      MYSQL_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     networks:
       - wordpress_network
 
