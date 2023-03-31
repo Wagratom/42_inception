@@ -3,10 +3,9 @@ FROM debian:buster
 RUN apt-get update && apt-get install -y mariadb-server mariadb-client procps
 RUN mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld
 
-
 RUN echo "bind-address = 0.0.0.0" >> /etc/mysql/mariadb.conf.d/50-server.cnf
 RUN echo "port = 3306" >> /etc/mysql/mariadb.conf.d/50-server.cnf
-#COPY ./conf/mysql.cnf /etc/mysql/conf.d/mysql.cnf
+COPY script.sh ./script.sh
+RUN chmod 777 script.sh
 EXPOSE 3306
-CMD ["mysqld"]
-ENTRYPOINT ["sh", "-c", "exec mysqld & sleep 10 && mysql -e \"CREATE DATABASE $MYSQL_DATABASE; GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD'; FLUSH PRIVILEGES;\" && wait $!"]
+ENTRYPOINT ["bash", "script.sh"]
