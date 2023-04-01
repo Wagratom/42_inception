@@ -1,8 +1,6 @@
 #!/bin/bash
+sleep 5
 wp core config --dbhost=$WORDPRESS_DB_HOST --dbname=$WORDPRESS_DB_NAME --dbuser=$WORDPRESS_DB_USER --dbpass=$WORDPRESS_DB_PASSWORD --allow-root --path=/var/www/html/wordpress
-wp core install --url=https://wagratom.com:4343 --title=ChatGptSalva --admin_name=wwallas --admin_password=951 --admin_email=testando@gmail.com --allow-root --path=/var/www/html/wordpress
-wp user create joao joao@pedefeijao.com --role=author --user_pass=123 --allow-root --path=/var/www/html/wordpress
+wp core install --url=https://wwallas.42.fr --title=42SP --admin_name=$ADM_NAME --admin_password=$ADM_PASSWORD --admin_email=$ADM_EMAIL --allow-root --path=/var/www/html/wordpress
+wp user create joao $USER_EMAIL --role=author --user_pass=$USER_PASSWORD --allow-root --path=/var/www/html/wordpress
 php-fpm7.3 -F
-
-
---allow-root --path=/var/www/html/wordpress

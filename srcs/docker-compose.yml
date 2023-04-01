@@ -29,8 +29,11 @@ services:
       - wordpress_data:/var/www/html
       - mariadb_data:/var/lib/mysql/
     environment:
-      PASSWORD_ADM: ${PASSWORD_ADM}
-      PASSWORD_USER: ${PASSWORD_USER}
+      ADM_NAME: ${ADM_NAME}
+      ADM_PASSWORD: ${ADM_PASSWORD}
+      ADM_EMAIL: ${ADM_EMAIL}
+      USER_PASSWORD: ${USER_PASSWORD}
+      USER_EMAIL: ${USER_EMAIL}
       WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
       WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
       WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
