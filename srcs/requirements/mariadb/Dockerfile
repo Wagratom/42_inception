@@ -8,4 +8,4 @@ RUN echo "port = 3306" >> /etc/mysql/mariadb.conf.d/50-server.cnf
 COPY ./tools/script.sh ./script.sh
 RUN chmod 777 script.sh
 EXPOSE 3306
-ENTRYPOINT ["bash", "script.sh"]
+CMD ["bash", "script.sh"]

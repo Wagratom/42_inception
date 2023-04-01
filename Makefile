@@ -18,12 +18,14 @@ NTW_NAME = wordpress_network
 all: init_service
 
 init_service:
+	echo "127.0.0.1       wagratom.com" >> /etc/hosts
 	cd srcs && docker-compose up -d --no-recreate --build
 	cd ..
 
 restart:
 	cd srcs && docker-compose restart
 	cd ..
+
 clean_ps:
 	docker rm -f $$(docker ps -a | grep $(DB_NAME) | awk '{print $$1}')
 	docker rm -f $$(docker ps -a | grep $(NGX_NAME) | awk '{print $$1}')
