@@ -14,17 +14,23 @@ DB_NAME = mariadb
 NGX_NAME = nginx
 WP_NAME = wordpress
 NTW_NAME = wordpress_network
+PATH_COMPOSE = cd ./srcs
+CUR_PATH = cd ..
 
 all: init_service
 
 init_service:
-	echo "127.0.0.1       wagratom.com" >> /etc/hosts
-	cd srcs && docker-compose up -d --no-recreate --build
-	cd ..
+#	echo user42 | sudo -S sh -c 'echo "127.0.0.1       wagratom.com" >> /etc/hosts'
+	$(PATH_COMPOSE) && docker-compose up -d --no-recreate
+	$(CUR_PATH)
+
+rebuild:
+	$(PATH_COMPOSE) && sudo docker-compose -f srcs/docker-compose.yml build --no-cache
+	$(CUR_PATH)
 
 restart:
-	cd srcs && docker-compose restart
-	cd ..
+	$(PATH_COMPOSE) && docker-compose restart
+	$(CUR_PATH)
 
 clean_ps:
 	docker rm -f $$(docker ps -a | grep $(DB_NAME) | awk '{print $$1}')
