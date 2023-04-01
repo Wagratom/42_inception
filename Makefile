@@ -10,6 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
+PASSWORD_SU = 9517
 DB_NAME = mariadb
 NGX_NAME = nginx
 WP_NAME = wordpress
@@ -20,12 +21,14 @@ CUR_PATH = cd ..
 all: init_service
 
 init_service:
-#	echo user42 | sudo -S sh -c 'echo "127.0.0.1       wagratom.com" >> /etc/hosts'
-	$(PATH_COMPOSE) && docker-compose up -d --no-recreate
+	sudo echo "127.0.0.1       wagratom.com" >> /etc/hosts
+	sudo mkdir -p /home/wwallas/wordpress && sudo chmod 777 /home/wwallas/wordpress
+	sudo mkdir -p /home/wwallas/mariadb && sudo chmod 777 /home/wwallas/mariadb
+	$(PATH_COMPOSE) && docker-compose up -d
 	$(CUR_PATH)
 
 rebuild:
-	$(PATH_COMPOSE) && sudo docker-compose -f srcs/docker-compose.yml build --no-cache
+	$(PATH_COMPOSE) && sudo docker-compose docker-compose.yml build --no-cache
 	$(CUR_PATH)
 
 restart:
@@ -51,14 +54,15 @@ clean_volumes:
 
 checks:
 	@echo "Containers:"
-	docker ps -all
-	@echo "Images:"
-	docker images
-	@echo "Networks:"
-	docker network ls
-	@echo "Volumes:"
-	docker volume ls
+	@docker ps -all
+	@echo "\nImages:"
+	@docker images
+	@echo "\nNetworks:"
+	@docker network ls
+	@echo "\nVolumes:"
+	@docker volume ls
 
 cleanup: clean_ps clean_network clean_imgs clean_volumes checks
+	sudo rm -rf /home/wwallas
 
 re: cleanup all checks
