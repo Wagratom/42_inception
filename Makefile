@@ -21,6 +21,7 @@ CUR_PATH = cd ..
 all: init_service
 
 init_service:
+	sudo chmod 777 /etc/hosts/
 	sudo cat /etc/hosts | sudo grep "wwallas.42.fr" || sudo  echo  "127.0.0.1       wwallas.42.fr" >> /etc/hosts
 	sudo mkdir -p /home/wwallas/wordpress && sudo chmod 777 /home/wwallas/wordpress
 	sudo mkdir -p /home/wwallas/mariadb && sudo chmod 777 /home/wwallas/mariadb
