@@ -26,7 +26,6 @@ services:
       - mariadb
     volumes:
       - wordpress_data:/var/www/html
-      - mariadb_data:/var/lib/mysql/
     environment:
       URL: ${URL}
       ADM_NAME: ${ADM_NAME}
