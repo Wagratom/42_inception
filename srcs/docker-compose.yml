@@ -12,8 +12,7 @@ services:
     volumes:
       - wordpress_data:/var/www/html
     ports:
-      - "8080:80"
-      - "4343:443"
+      - "443:443"
     networks:
       - wordpress_network
 
@@ -29,6 +28,7 @@ services:
       - wordpress_data:/var/www/html
       - mariadb_data:/var/lib/mysql/
     environment:
+      URL: ${URL}
       ADM_NAME: ${ADM_NAME}
       ADM_PASSWORD: ${ADM_PASSWORD}
       ADM_EMAIL: ${ADM_EMAIL}
