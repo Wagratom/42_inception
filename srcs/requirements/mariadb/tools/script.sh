@@ -18,4 +18,5 @@ mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD'"
 mysql -e "flush privileges"
 
 #iniciando o serviço em pid 1
+service mysql stop
 mysqld
