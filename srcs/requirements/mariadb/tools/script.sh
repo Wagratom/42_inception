@@ -1,10 +1,8 @@
-#!/bin/bash
-
 #Iniciando o servido mysql
 service mysql start
 
 # Criando uma nova base de dados em pt br
-mysql -e "CREATE DATABASE $MYSQL_DATABASE CHARACTER SET utf8 COLLATE utf8_general_ci"
+mysql -e "CREATE DATABASE $MYSQL_DATABASE"
 
 # Criando um user que nao vai ser local '%' e um password
 mysql -e "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD'"
@@ -13,10 +11,9 @@ mysql -e "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD'"
 mysql -e "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%'"
 
 # Alterando a senha root
-mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD'"
-# Dando um update
-mysql -e "flush privileges"
+mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';FLUSH PRIVILEGES"
 
-#iniciando o serviço em pid 1
-service mysql stop
-mysqld
+# Alterando a senha no arquivo de configuração do mysql debian
+sed -i "s/password =/password = $MYSQL_ROOT_PASSWORD/g" /etc/mysql/debian.cnf
+
+service mysql stop && mysqld_safe
